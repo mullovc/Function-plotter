@@ -1,14 +1,14 @@
 #include<iostream>
-//#include<string>
-//#include<sstream>
 #include<fstream>
-#include<cstdlib>
-#include "calculator.hpp"
+
+#include "calculator.h"
+
 using namespace std;
 
 string feld[1000][1000];
 int dimensionen = 299;
 float zoom = 0.1;
+bool multipleFunktions;
 
 void feldGenerator(char input[100])
 {
@@ -24,7 +24,8 @@ void feldGenerator(char input[100])
                      if(j==dimensionen-1)
                      zeichen="\n";
                      
-                     feld[j][i]=zeichen;
+                     if(feld[j][i] != "X" || multipleFunktions == false)
+                     	feld[j][i]=zeichen;
              }
      }
      
@@ -62,12 +63,7 @@ void feldGenerator(char input[100])
              if(f>=0 && f<dimensionen)
              	feld[i][(int)f]="X";
              
-             //if(f>=0 && f<dimensionen)
-             	previousF = f;/*
-            else if(f > dimensionen)
-            	previousF = dimensionen;
-            else if(f < 0)
-            	previousF = 0;*/
+             previousF = f;
      }
 }
 
@@ -89,9 +85,11 @@ void setPreferences()
     
     string dimensionenStr;
     string zoomStr;
+    string multipleFunktionsStr;
     
     getline(prefs, dimensionenStr);
     getline(prefs, zoomStr);
+    getline(prefs, multipleFunktionsStr);
     
     if(zoomStr != "" || dimensionenStr != "")
     {
@@ -99,26 +97,14 @@ void setPreferences()
 	    zoom = stringToDouble(zoomStr);
     }
     
+    if(multipleFunktionsStr == "true")
+    {
+    	multipleFunktions = true;
+    }
+    else if(multipleFunktionsStr == "false")
+    {
+    	multipleFunktions = false;
+    }
+    
     prefs.close();
-}
-
-int main()
-{
-    system("color F0");
-    
-	char input[100];
-	
-	for(int i = 0; i < 100; i++)
-	{
-		input[i] = ' ';
-	}
-	cout<<"\nf(x)=";
-	cin.getline(input,99);
-	
-	setPreferences();
-    feldGenerator(input);
-    zeigeFeld();
-    
-    cin.get();
-    return 0;
 }

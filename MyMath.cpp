@@ -1,9 +1,9 @@
-#define PI 3.1415926
+#include "MyMath.h"
 
-double nrt(double,int);
 
-double pow(double basis, float x, double zoom = 1)
+double pow(double basis, float x)
 {
+	   double zoom = 1;
        double ergebnis=1;
        if((int)x==x)
        {

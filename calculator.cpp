@@ -1,6 +1,8 @@
 #include<string>
 #include<sstream>
-#include "MyMath.hpp"
+
+#include "MyMath.h"
+#include "calculator.h"
 
 using namespace std;
 
